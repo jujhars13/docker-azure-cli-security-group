@@ -4,4 +4,6 @@ MAINTAINER Jujhar Singh
 
 ADD run.sh /run.sh
 
-ENTRYPOINT [ "run.sh" ]
+RUN chmod +x /run.sh
+
+ENTRYPOINT [ "/run.sh" ]
