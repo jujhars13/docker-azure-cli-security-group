@@ -37,7 +37,7 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
-az configure --defaults group=${NAME}
+az configure --defaults group=''
 
 # need a friendly IP for the name as it probably won't accept full stops
 friendlyIp="$(sed 's/\./_/g' <<< $IP)"
@@ -45,7 +45,7 @@ friendlyIp="$(sed 's/\./_/g' <<< $IP)"
 # add rule to ip address
 # we'll just use the port number as priority as they cannot be the same for an IP
 az network nsg rule create \
-	--resource-group ${NAME} \
+	--resource-group "${NAME}" \
 	--nsg-name ${NAME} \
 	--name "a_${PORT}-${friendlyIp}" \
 	--access Allow \
