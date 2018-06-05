@@ -9,6 +9,9 @@
 # or to run for another IP address:
 # 		IP=43.22.33.11 NAME="mySecGroup" PORT=6379 ./azOpenPortOnRg.sh 
 
+set -euo pipefail
+IFS=$'\n\t'
+
 if [ -z "$NAME" ]; then
 	echo "please supply the Azure resource group \$NAME"
 	exit 1

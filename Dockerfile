@@ -1,6 +1,6 @@
-FROM microsoft/azure-cli:latest
+FROM microsoft/azure-cli:2.0.32
 
-MAINTAINER Jujhar Singh
+LABEL AUTHOR Jujhar Singh
 
 ADD run.sh /run.sh
 
