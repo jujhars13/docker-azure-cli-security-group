@@ -1,4 +1,4 @@
-FROM microsoft/azure-cli:2.0.32
+FROM microsoft/azure-cli:latest
 
 LABEL AUTHOR Jujhar Singh
 
