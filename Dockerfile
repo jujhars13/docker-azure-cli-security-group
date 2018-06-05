@@ -1,9 +1,11 @@
 FROM microsoft/azure-cli:latest
 
-LABEL AUTHOR Jujhar Singh
+LABEL maintainer="Jujhar Singh"
 
 ADD run.sh /run.sh
 
-RUN chmod +x /run.sh
+WORKDIR  /
 
-ENTRYPOINT [ "/run.sh" ]
+ENTRYPOINT [ "/bin/bash"]
+
+CMD [ "-c", "/run.sh" ]

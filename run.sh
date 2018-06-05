@@ -27,11 +27,18 @@ if [ -z "$IP" ]; then
 	IP=`curl -s https://ifconfig.io/`
 fi
 
+echo "Opening up ${PORT} on ${NAME} for ${IP}"
+
+echo "logging into Azure first"
+
 # login first
 az login
 
-# does our connection work ?
-az resource list --resource-group ${NAME}
+# if subscription_id (guid or name) is supplied then override default 
+# https://docs.microsoft.com/en-us/cli/azure/account?view=azure-cli-latest#az-account-set
+if [ ! -z "$SUBS_ID" ]; then
+	az account set --subscription ${SUBS_ID}
+fi 
 
 echo "ok"
 
@@ -46,12 +53,12 @@ friendlyIp="$(sed 's/\./_/g' <<< $IP)"
 # add rule to ip address
 # we'll just use the port number as priority as they cannot be the same for an IP
 az network nsg rule create \
-	--resource-group ${NAME} \
-	--nsg-name ${NAME} \
-	--name "a_${PORT}-${friendlyIp}" \
+	--resource-group="${NAME}" \
+	--nsg-name="${NAME}" \
+	--name="a${PORT}-${friendlyIp}" \
 	--access Allow \
-	--priority ${PORT} \
-	--source-address-prefixes ${IP}/32 --source-port-ranges ${PORT} \
-	--destination-address-prefixes '*' --destination-port-ranges ${PORT} \
+	--priority=${PORT} \
+	--source-address-prefixes="${IP}/32" --source-port-ranges=${PORT} \
+	--destination-address-prefixes '*' --destination-port-ranges=${PORT} \
 	--protocol Tcp \
-	--description "Allow from ${IP}. Via cli on $(date '+%Y-%m-%d %H:%M:%S')"
+	--description="Allow from ${IP}. Via cli on $(date '+%Y-%m-%d %H:%M:%S')"

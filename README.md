@@ -9,3 +9,10 @@ jujhars13/azure-cli-security-group
 ```
 
 Used to access servers on the fly.
+
+## Optional Env Variables
+
+```bash
+IP=<the ip address you want to unlock, otherwise it will curl myIP.co to get it>
+SUBS_ID=<the specific azure subscription id, if you want to override default>
+```
